@@ -27,6 +27,10 @@ public class Activity {
 
     private LocalDate dueDate;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
     private Instant completedAt;
 
     @Column(nullable = false, updatable = false)
@@ -94,6 +98,14 @@ public class Activity {
 
     public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public Instant getCompletedAt() {
