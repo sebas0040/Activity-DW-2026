@@ -5,7 +5,10 @@ import java.time.LocalDate;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+
+import java.util.Set;
 
 @Entity
 @Table(name = "activity")
@@ -47,6 +50,10 @@ public class Activity {
 
     @OneToOne(mappedBy = "activity", cascade = CascadeType.ALL, orphanRemoval = true)
     private ActivityDetail detail;
+
+    @ManyToMany
+    @JoinTable(name = "activity_tag", joinColumns = @JoinColumn(name = "activity_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    private Set<Tag> tags = new HashSet<>();
 
     @PrePersist
     void onCreate() {
@@ -155,6 +162,14 @@ public class Activity {
 
     public void setDetail(ActivityDetail detail) {
         this.detail = detail;
+    }
+
+    public Set<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
     }
 
 }
