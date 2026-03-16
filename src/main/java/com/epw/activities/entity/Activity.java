@@ -45,6 +45,9 @@ public class Activity {
     @OneToMany(mappedBy = "activity", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reminder> reminders = new ArrayList<>();
 
+    @OneToOne(mappedBy = "activity", cascade = CascadeType.ALL, orphanRemoval = true)
+    private ActivityDetail detail;
+
     @PrePersist
     void onCreate() {
         Instant now = Instant.now();
@@ -144,6 +147,14 @@ public class Activity {
 
     public void setReminders(List<Reminder> reminders) {
         this.reminders = reminders;
+    }
+
+    public ActivityDetail getDetail() {
+        return detail;
+    }
+
+    public void setDetail(ActivityDetail detail) {
+        this.detail = detail;
     }
 
 }
